@@ -48,10 +48,18 @@ export default function DashSidebar() {
         <Sidebar.Items>
             <Sidebar.ItemGroup className='flex flex-col gap-1'>
             <Link to='/dashboard?tab=profile'>
-                <Sidebar.Item active={tab === 'profile'}icon={HiUser} lable={'User'} lableColor='dark' as='div'>
+                <Sidebar.Item active={tab === 'profile'}icon={HiUser} lable={currentUser.isAdmin ? 'Admin':'User'} lableColor='dark' as='div'>
                     Profile
                 </Sidebar.Item>
                 </Link>
+                {currentUser.isAdmin && (
+                   <Link to='/dashboard?tab=posts'>
+                   <Sidebar.Item active={tab === 'posts'}icon={HiDocumentText}  as='div'>
+                       Posts
+                   </Sidebar.Item>
+                   </Link>
+                )}
+               
                 <Sidebar.Item icon={HiArrowSmRight}
             className='cursor-pointer'
             onClick={handleSignout}
