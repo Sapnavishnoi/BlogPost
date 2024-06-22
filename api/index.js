@@ -19,6 +19,8 @@ mongoose.connect('mongodb+srv://sapnavishnoi105:UserPassword@cluster0.yttqtbz.mo
     console.log('Error:', err)
 })
 
+const __dirname = path.resolve();
+
 app.listen(5002, ()=>{
     console.log("port is running on 5001!")
 });
@@ -28,6 +30,12 @@ app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next)=>{
     const statusCode = err.statusCode || 500;
