@@ -1,17 +1,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/authroute.js';
-import cookieParser from 'cookie-parser';
-import postRoutes from './routes/post.route.js'
+import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
+import cookieParser from 'cookie-parser';
+import path from 'path';
+
+dotenv.config();
+
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
 
-mongoose.connect('mongodb+srv://sapnavishnoi105:UserPassword@cluster0.yttqtbz.mongodb.net/blog-post?retryWrites=true&w=majority&appName=Cluster0').then(
+mongoose.connect(process.env.MONGO).then(
     ()=>{
         console.log("Database is connected!!")
     }
